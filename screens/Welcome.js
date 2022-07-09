@@ -56,6 +56,7 @@ const Welcome = ({ navigation }) => {
               Login
             </Text>
           </View>
+          <Text onPress={() => navigation.navigate("Products")}>Products</Text>
         </View>
       </ImageBackground>
     );
