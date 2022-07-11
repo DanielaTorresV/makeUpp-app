@@ -53,7 +53,7 @@ const productsStyles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: 700,
+    fontWeight: "bold",
     color: "#F3DFD1",
   },
   texts_subtitle: {
@@ -69,7 +69,7 @@ const productsStyles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#F3DFD1",
     fontSize: 16,
-    fontWeight: 600,
+    fontWeight: "bold",
     color: "#C7615D",
     borderRadius: 6,
     margin: 4,

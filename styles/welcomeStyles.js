@@ -40,7 +40,7 @@ const welcomeStyles = StyleSheet.create({
     paddingTop: 30,
     paddingLeft: 10,
     marginLeft: 32,
-    borderRadius: "100%",
+    borderRadius: 50,
   },
   buttonLogin: {
     fontSize: 22,
@@ -51,7 +51,7 @@ const welcomeStyles = StyleSheet.create({
     paddingTop: 30,
     paddingLeft: 20,
     marginLeft: 12,
-    borderRadius: "100%",
+    borderRadius: 50,
   },
 });
 

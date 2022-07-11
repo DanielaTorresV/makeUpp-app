@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, ScrollView, FlatList } from "react-native";
-import AppLoading from "expo-app-loading";
+//import AppLoading from "expo-app-loading";
 import axios from "axios";
 import {
   useFonts,
@@ -21,10 +21,10 @@ const Products = ({ navigation }) => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <Text>Loading...</Text>;
   } else {
     return (
-      <ScrollView style={productsStyles.container}>
+      <View style={productsStyles.container}>
         <View style={productsStyles.container_textAndButton}>
           <View style={productsStyles.container_Buttons}>
             <AboutUsModal />
@@ -104,7 +104,7 @@ const Products = ({ navigation }) => {
           )}
         </View>
         <Image source={Logo} style={productsStyles.logo} />
-      </ScrollView>
+      </View>
     );
   }
 };

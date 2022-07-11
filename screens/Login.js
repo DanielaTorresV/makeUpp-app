@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, TextInput } from "react-native";
-import AppLoading from "expo-app-loading";
+//import AppLoading from "expo-app-loading";
 import {
   useFonts,
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 import loginStyles from "../styles/loginStyles";
 import Logo from "../assets/Logo.svg";
-import Brocha from "../assets/Brocha 1.png";
+import Brocha from "../assets/Brocha.png";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ const Login = ({ navigation }) => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <Text>Loading...</Text>;
   } else {
     return (
       <View style={loginStyles.container}>

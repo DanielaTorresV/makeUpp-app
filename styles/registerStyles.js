@@ -42,7 +42,7 @@ const registerStyles = StyleSheet.create({
     height: 120,
     padding: 25,
     margin: 20,
-    borderRadius: "100%",
+    borderRadius: 50,
   },
   containerBottom: {
     display: "flex",

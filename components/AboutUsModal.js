@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
-import AppLoading from "expo-app-loading";
+//import AppLoading from "expo-app-loading";
 import {
   useFonts,
   LeckerliOne_400Regular,
@@ -12,7 +12,7 @@ const AboutUsModal = () => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <Text>Loading...</Text>;
   } else {
     return (
       <View>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   button: {
     paddingTop: 15,
     paddingLeft: 10,
-    borderRadius: "50%",
+    borderRadius: 25,
     elevation: 2,
   },
   buttonOpen: {

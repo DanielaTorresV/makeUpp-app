@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, TextInput } from "react-native";
-import AppLoading from "expo-app-loading";
+//import AppLoading from "expo-app-loading";
 import {
   useFonts,
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 import registerStyles from "../styles/registerStyles";
 import Logo from "../assets/Logo.svg";
-import LipStick from "../assets/Labial 1.png";
+import LipStick from "../assets/Labial.png";
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -19,7 +19,7 @@ const Register = ({ navigation }) => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <Text>Loading...</Text>;
   } else {
     return (
       <View style={registerStyles.container}>
