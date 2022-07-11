@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, FlatList } from "react-native";
-//import AppLoading from "expo-app-loading";
+import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import {
   useFonts,
@@ -21,7 +20,7 @@ const Products = ({ navigation }) => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator color="#0A4379" />;
   } else {
     return (
       <View style={productsStyles.container}>
@@ -52,16 +51,7 @@ const Products = ({ navigation }) => {
         </View>
         <View>
           {!data ? (
-            <Text
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                productsStyles.textProducts,
-              ]}
-            >
-              Loading...
-            </Text>
+            <ActivityIndicator color="#0A4379" />
           ) : (
             <FlatList
               data={data}

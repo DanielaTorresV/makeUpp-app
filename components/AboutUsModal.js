@@ -1,6 +1,13 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
-//import AppLoading from "expo-app-loading";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import {
   useFonts,
   LeckerliOne_400Regular,
@@ -12,7 +19,7 @@ const AboutUsModal = () => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator color="#0A4379" />;
   } else {
     return (
       <View>
@@ -149,14 +156,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 15,
+    marginBottom: 45,
   },
   modalView: {
     width: "80%",
-    margin: 20,
     backgroundColor: "#F3DFD1",
     borderRadius: 20,
-    padding: 35,
+    padding: 15,
     alignItems: "center",
     shadowColor: "#0A4379",
     shadowOffset: {
@@ -168,19 +174,21 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    paddingTop: 15,
-    paddingLeft: 10,
-    borderRadius: 25,
+    alignItems: "center",
+    borderRadius: 15,
     elevation: 2,
   },
   buttonOpen: {
     width: 80,
-    height: 80,
+    height: 60,
+    paddingTop: 15,
     backgroundColor: "#C7615D",
   },
   buttonClose: {
     width: 100,
-    height: 80,
+    height: 60,
+    paddingTop: 8,
+    marginTop: 8,
     backgroundColor: "#C7615D",
   },
   textStyle: {
@@ -191,14 +199,14 @@ const styles = StyleSheet.create({
   },
   modalTextTitle: {
     color: "#0A4379",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
-    margin: 10,
+    margin: 8,
     textAlign: "center",
   },
   modalText: {
     color: "#0A4379",
-    fontSize: 15,
+    fontSize: 14,
     textAlign: "center",
   },
 });

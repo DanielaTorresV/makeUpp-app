@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ImageBackground } from "react-native";
-//import AppLoading from "expo-app-loading";
+import {
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  ActivityIndicator,
+} from "react-native";
 import {
   useFonts,
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/Logo.png";
 import Palette from "../assets/Palette.png";
 import welcomeStyles from "../styles/welcomeStyles";
 
@@ -14,7 +19,7 @@ const Welcome = ({ navigation }) => {
     LeckerliOne_400Regular,
   });
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator color="#0A4379" />;
   } else {
     return (
       <ImageBackground source={Palette} style={welcomeStyles.img_background}>

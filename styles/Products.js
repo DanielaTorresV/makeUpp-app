@@ -31,9 +31,9 @@ const productsStyles = StyleSheet.create({
     color: "#F3DFD1",
     backgroundColor: "#C7615D",
     width: 150,
-    height: 40,
-    padding: 10,
-    borderRadius: 20,
+    height: 45,
+    padding: 8,
+    borderRadius: 15,
   },
   card: {
     backgroundColor: "#C7615D",
