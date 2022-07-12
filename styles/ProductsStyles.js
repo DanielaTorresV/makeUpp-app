@@ -25,16 +25,6 @@ const productsStyles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  button_Profile: {
-    textAlign: "center",
-    fontSize: 18,
-    color: "#F3DFD1",
-    backgroundColor: "#C7615D",
-    width: 150,
-    height: 45,
-    padding: 8,
-    borderRadius: 15,
-  },
   card: {
     backgroundColor: "#C7615D",
     borderRadius: 6,

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Alert,
   Modal,
-  StyleSheet,
   Text,
   Pressable,
   View,
@@ -12,6 +11,7 @@ import {
   useFonts,
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
+import AboutusModalstyles from "../styles/components/AboutusModalStyles";
 
 const AboutUsModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,15 +32,15 @@ const AboutUsModal = () => {
             setModalVisible(!modalVisible);
           }}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+          <View style={AboutusModalstyles.centeredView}>
+            <View style={AboutusModalstyles.modalView}>
               <View>
                 <Text
                   style={[
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.modalTextTitle,
+                    AboutusModalstyles.modalTextTitle,
                   ]}
                 >
                   About Us
@@ -50,7 +50,7 @@ const AboutUsModal = () => {
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.modalText,
+                    AboutusModalstyles.modalText,
                   ]}
                 >
                   Our company was born looking to help those who are passionate
@@ -63,7 +63,7 @@ const AboutUsModal = () => {
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.modalTextTitle,
+                    AboutusModalstyles.modalTextTitle,
                   ]}
                 >
                   Mision
@@ -73,7 +73,7 @@ const AboutUsModal = () => {
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.modalText,
+                    AboutusModalstyles.modalText,
                   ]}
                 >
                   Create a quality product at a low price, accessible to all
@@ -84,7 +84,7 @@ const AboutUsModal = () => {
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.modalTextTitle,
+                    AboutusModalstyles.modalTextTitle,
                   ]}
                 >
                   Vision
@@ -94,7 +94,7 @@ const AboutUsModal = () => {
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.modalText,
+                    AboutusModalstyles.modalText,
                   ]}
                 >
                   Being able to reach more countries and offer our great
@@ -106,8 +106,8 @@ const AboutUsModal = () => {
                   {
                     fontFamily: "LeckerliOne_400Regular",
                   },
-                  styles.button,
-                  styles.buttonClose,
+                  AboutusModalstyles.button,
+                  AboutusModalstyles.buttonClose,
                 ]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
@@ -116,7 +116,7 @@ const AboutUsModal = () => {
                     {
                       fontFamily: "LeckerliOne_400Regular",
                     },
-                    styles.textStyle,
+                    AboutusModalstyles.textStyle,
                   ]}
                 >
                   Hide About Us
@@ -130,8 +130,8 @@ const AboutUsModal = () => {
             {
               fontFamily: "LeckerliOne_400Regular",
             },
-            styles.button,
-            styles.buttonOpen,
+            AboutusModalstyles.button,
+            AboutusModalstyles.buttonOpen,
           ]}
           onPress={() => setModalVisible(true)}
         >
@@ -140,7 +140,7 @@ const AboutUsModal = () => {
               {
                 fontFamily: "LeckerliOne_400Regular",
               },
-              styles.textStyle,
+              AboutusModalstyles.textStyle,
             ]}
           >
             About Us
@@ -150,65 +150,5 @@ const AboutUsModal = () => {
     );
   }
 };
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 45,
-  },
-  modalView: {
-    width: "80%",
-    backgroundColor: "#F3DFD1",
-    borderRadius: 20,
-    padding: 15,
-    alignItems: "center",
-    shadowColor: "#0A4379",
-    shadowOffset: {
-      width: 3,
-      height: 5,
-    },
-    shadowOpacity: 0.7,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    alignItems: "center",
-    borderRadius: 15,
-    elevation: 2,
-  },
-  buttonOpen: {
-    width: 80,
-    height: 60,
-    paddingTop: 15,
-    backgroundColor: "#C7615D",
-  },
-  buttonClose: {
-    width: 100,
-    height: 60,
-    paddingTop: 8,
-    marginTop: 8,
-    backgroundColor: "#C7615D",
-  },
-  textStyle: {
-    color: "#F3DFD1",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalTextTitle: {
-    color: "#0A4379",
-    fontSize: 18,
-    fontWeight: "bold",
-    margin: 8,
-    textAlign: "center",
-  },
-  modalText: {
-    color: "#0A4379",
-    fontSize: 14,
-    textAlign: "center",
-  },
-});
 
 export default AboutUsModal;

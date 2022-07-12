@@ -6,8 +6,9 @@ import {
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 import Logo from "../assets/Logo.svg";
-import productsStyles from "../styles/Products";
+import productsStyles from "../styles/ProductsStyles";
 import AboutUsModal from "../components/AboutUsModal";
+import ProfileModal from "../components/ProfileModal";
 
 const Products = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -27,16 +28,7 @@ const Products = ({ navigation }) => {
         <View style={productsStyles.container_textAndButton}>
           <View style={productsStyles.container_Buttons}>
             <AboutUsModal />
-            <Text
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                productsStyles.button_Profile,
-              ]}
-            >
-              Your Profile
-            </Text>
+            <ProfileModal />
           </View>
           <Text
             style={[
