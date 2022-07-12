@@ -65,6 +65,7 @@ const productsStyles = StyleSheet.create({
   },
   logo: {
     marginLeft: 10,
+    marginTop: 10,
     width: 130,
     height: 70,
   },

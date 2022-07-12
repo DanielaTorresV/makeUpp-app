@@ -5,7 +5,7 @@ const AboutusModalstyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 45,
+    marginBottom: 75,
   },
   modalView: {
     width: "80%",
@@ -28,9 +28,9 @@ const AboutusModalstyles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    width: 80,
-    height: 60,
-    paddingTop: 15,
+    width: 85,
+    height: 45,
+    paddingTop: 10,
     backgroundColor: "#C7615D",
   },
   buttonClose: {

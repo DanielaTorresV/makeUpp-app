@@ -60,7 +60,10 @@ const Products = ({ navigation }) => {
               renderItem={({ item }) => {
                 return (
                   <View style={productsStyles.card}>
-                    <Image style={productsStyles.picture} source={item.image} />
+                    <Image
+                      style={productsStyles.picture}
+                      source={{ uri: `${item.image}` }}
+                    />
                     <Text
                       style={[
                         {
