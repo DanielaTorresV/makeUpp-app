@@ -5,6 +5,7 @@ import Welcome from "./screens/Welcome";
 import Register from "./screens/Register";
 import Login from "./screens/Login";
 import Products from "./screens/Products";
+import Box from "./screens/Box";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Products" component={Products} />
+        <Stack.Screen name="Box" component={Box} />
       </Stack.Navigator>
     </NavigationContainer>
   );

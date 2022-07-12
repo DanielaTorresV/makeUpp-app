@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import axios from "axios";
 import {
   useFonts,
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/Logo.png";
 import productsStyles from "../styles/ProductsStyles";
 import AboutUsModal from "../components/AboutUsModal";
 import ProfileModal from "../components/ProfileModal";
@@ -30,16 +37,19 @@ const Products = ({ navigation }) => {
             <AboutUsModal />
             <ProfileModal />
           </View>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              productsStyles.textProducts,
-            ]}
-          >
-            Our Products
-          </Text>
+          <View style={productsStyles.container_Buttons}>
+            <Image source={Logo} style={productsStyles.logo} />
+            <Text
+              style={[
+                {
+                  fontFamily: "LeckerliOne_400Regular",
+                },
+                productsStyles.textProducts,
+              ]}
+            >
+              Our Products
+            </Text>
+          </View>
         </View>
         <View>
           {!data ? (
@@ -74,7 +84,9 @@ const Products = ({ navigation }) => {
                         },
                         productsStyles.goButton,
                       ]}
-                      onPress={() => {}}
+                      onPress={() => {
+                        navigation.navigate("Box", { id: item.id });
+                      }}
                     >
                       Add to Box
                     </Text>
@@ -85,7 +97,6 @@ const Products = ({ navigation }) => {
             />
           )}
         </View>
-        <Image source={Logo} style={productsStyles.logo} />
       </View>
     );
   }

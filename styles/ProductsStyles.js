@@ -5,7 +5,6 @@ const productsStyles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#F3DFD1",
   },
   container_textAndButton: {
     display: "flex",
@@ -66,8 +65,8 @@ const productsStyles = StyleSheet.create({
   },
   logo: {
     marginLeft: 10,
-    width: 150,
-    height: 90,
+    width: 130,
+    height: 70,
   },
 });
 
