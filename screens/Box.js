@@ -20,8 +20,8 @@ const Box = ({ route, navigation }) => {
   const { id } = route.params;
   const [data, setData] = useState({});
   useEffect(() => {
-    axios.get(`https://fakestoreapi.com/products/${id}`).then((res) => {
-      setData(res.data);
+    axios.get(`http://localhost:8080/products/${id}`).then((res) => {
+      setData(res.data.data);
     });
   }, []);
 
@@ -60,7 +60,7 @@ const Box = ({ route, navigation }) => {
                   boxStyles.name,
                 ]}
               >
-                Product: {data.title}
+                Product: {data.name}
               </Text>
               <Text style={boxStyles.texts_subtitle}>
                 Category: {data.category}

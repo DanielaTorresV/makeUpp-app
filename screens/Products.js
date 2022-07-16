@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  ActivityIndicator,
-  ScrollView,
-} from "react-native";
+import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import {
   useFonts,
@@ -20,8 +13,9 @@ import ProfileModal from "../components/ProfileModal";
 const Products = ({ navigation }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get("https://fakestoreapi.com/products").then((res) => {
-      setData(res.data);
+    axios.get(`http://localhost:8080/products`).then((res) => {
+      console.log(res);
+      setData(res.data.data);
     });
   }, []);
   let [fontsLoaded] = useFonts({
@@ -72,7 +66,7 @@ const Products = ({ navigation }) => {
                         productsStyles.name,
                       ]}
                     >
-                      Product: {item.title}
+                      Product: {item.name}
                     </Text>
                     <Text style={productsStyles.texts_subtitle}>
                       Description
@@ -88,7 +82,7 @@ const Products = ({ navigation }) => {
                         productsStyles.goButton,
                       ]}
                       onPress={() => {
-                        navigation.navigate("Box", { id: item.id });
+                        navigation.navigate("Box", { id: item._id });
                       }}
                     >
                       Add to Box
@@ -96,7 +90,7 @@ const Products = ({ navigation }) => {
                   </View>
                 );
               }}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
             />
           )}
         </View>

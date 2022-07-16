@@ -7,7 +7,7 @@ const productsModalstyles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    width: "95%",
+    width: "90%",
     backgroundColor: "#F3DFD1",
     borderRadius: 20,
     padding: 15,
@@ -52,9 +52,30 @@ const productsModalstyles = StyleSheet.create({
     margin: 8,
     textAlign: "center",
   },
+
+  modalContainer_textButton: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    margin: 3,
+  },
+
   modalText: {
     color: "#0A4379",
-    fontSize: 12,
+    fontSize: 14,
+    marginRight: 10,
+  },
+  modalAddButton: {
+    color: "#F3DFD1",
+    fontSize: 14,
+    textAlign: "center",
+    borderRadius: 8,
+    elevation: 2,
+    width: 50,
+    height: 25,
+    padding: 5,
+    margin: 5,
+    backgroundColor: "#C7615D",
   },
 });
 

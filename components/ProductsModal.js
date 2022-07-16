@@ -20,8 +20,8 @@ const ProductsModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get("https://fakestoreapi.com/products").then((res) => {
-      setData(res.data);
+    axios.get("http://localhost:8080/products/").then((res) => {
+      setData(res.data.data);
     });
   }, []);
   let [fontsLoaded] = useFonts({
@@ -61,7 +61,9 @@ const ProductsModal = () => {
                     data={data}
                     renderItem={({ item }) => {
                       return (
-                        <View>
+                        <View
+                          style={productsModalstyles.modalContainer_textButton}
+                        >
                           <Text
                             style={[
                               {
@@ -70,12 +72,22 @@ const ProductsModal = () => {
                               productsModalstyles.modalText,
                             ]}
                           >
-                            * Product: {item.title}
+                            * Product: {item.name}
+                          </Text>
+                          <Text
+                            style={[
+                              {
+                                fontFamily: "LeckerliOne_400Regular",
+                              },
+                              productsModalstyles.modalAddButton,
+                            ]}
+                          >
+                            Add
                           </Text>
                         </View>
                       );
                     }}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item._id}
                   />
                 )}
                 <Pressable

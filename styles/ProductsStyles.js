@@ -34,8 +34,8 @@ const productsStyles = StyleSheet.create({
     alignItems: "center",
   },
   picture: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 250,
     borderRadius: 20,
     borderWidth: 4,
     borderColor: "#F3DFD1",
