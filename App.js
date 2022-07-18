@@ -7,17 +7,22 @@ import Login from "./screens/Login";
 import Products from "./screens/Products";
 import Box from "./screens/Box";
 
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Products" component={Products} />
-        <Stack.Screen name="Box" component={Box} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Products" component={Products} />
+          <Stack.Screen name="Box" component={Box} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
