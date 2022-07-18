@@ -40,6 +40,14 @@ const ProfileModalstyles = StyleSheet.create({
     marginTop: 8,
     backgroundColor: "#C7615D",
   },
+  buttonProfile: {
+    width: 100,
+    height: 40,
+    paddingTop: 10,
+    marginTop: 8,
+    marginLeft: 8,
+    backgroundColor: "#C7615D",
+  },
   imgProfile: {
     width: 55,
     height: 55,
@@ -66,6 +74,11 @@ const ProfileModalstyles = StyleSheet.create({
     color: "#0A4379",
     fontSize: 16,
     textAlign: "center",
+  },
+  containerButtons: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
 });
 

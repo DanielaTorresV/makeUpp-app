@@ -7,14 +7,15 @@ import {
 } from "@expo-google-fonts/leckerli-one";
 import Logo from "../assets/Logo.png";
 import productsStyles from "../styles/ProductsStyles";
+import ProfileModalstyles from "../styles/components/ProfileModalStyles";
 import AboutUsModal from "../components/AboutUsModal";
 import ProfileModal from "../components/ProfileModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Products = ({ navigation }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios.get(`http://localhost:8080/products`).then((res) => {
-      console.log(res);
       setData(res.data.data);
     });
   }, []);
@@ -29,7 +30,25 @@ const Products = ({ navigation }) => {
         <View style={productsStyles.container_textAndButton}>
           <View style={productsStyles.container_Buttons}>
             <AboutUsModal />
-            <ProfileModal />
+            <View style={ProfileModalstyles.containerButtons}>
+              <ProfileModal />
+              <Text
+                onPress={() => {
+                  AsyncStorage.clear();
+                  navigation.navigate("Welcome");
+                }}
+                style={[
+                  {
+                    fontFamily: "LeckerliOne_400Regular",
+                  },
+                  ProfileModalstyles.button,
+                  ProfileModalstyles.buttonProfile,
+                  ProfileModalstyles.textStyle,
+                ]}
+              >
+                Log Out
+              </Text>
+            </View>
           </View>
           <View style={productsStyles.container_Buttons}>
             <Image source={Logo} style={productsStyles.logo} />

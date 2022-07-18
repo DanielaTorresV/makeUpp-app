@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Text, View, Image, TextInput, ActivityIndicator } from "react-native";
 import {
   useFonts,
@@ -7,12 +8,23 @@ import {
 import registerStyles from "../styles/registerStyles";
 import Logo from "../assets/Logo.png";
 import LipStick from "../assets/Labial.png";
+import { registerUser } from "../store/reducers/User.reducer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleRegister = async (e) => {
+    dispatch(registerUser(name, email, password));
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      navigation.navigate("Products");
+    }
+  };
 
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
@@ -86,6 +98,7 @@ const Register = ({ navigation }) => {
                 },
                 registerStyles.buttonSend,
               ]}
+              onPress={handleRegister}
             >
               Send
             </Text>

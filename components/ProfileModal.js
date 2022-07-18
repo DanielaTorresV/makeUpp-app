@@ -14,12 +14,25 @@ import {
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 import ProfileModalstyles from "../styles/components/ProfileModalStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ProfileModal = () => {
+const ProfileModal = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+
+  const getData = async () => {
+    try {
+      const nameReg = await AsyncStorage.getItem("name");
+      setName(nameReg);
+    } catch (e) {
+      Alert.alert("Error reading values");
+    }
+  };
+
+  console.log(getData.nameReg);
+
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });
@@ -68,7 +81,7 @@ const ProfileModal = () => {
               <TextInput
                 onChangeText={setName}
                 value={name}
-                placeholder="Poner nombre del login..."
+                placeholder={name}
                 style={[
                   {
                     fontFamily: "LeckerliOne_400Regular",
@@ -118,13 +131,14 @@ const ProfileModal = () => {
                   ProfileModalstyles.modalText,
                 ]}
               />
+
               <Text
                 style={[
                   {
                     fontFamily: "LeckerliOne_400Regular",
                   },
                   ProfileModalstyles.button,
-                  ProfileModalstyles.buttonClose,
+                  ProfileModalstyles.buttonProfile,
                   ProfileModalstyles.textStyle,
                 ]}
               >
@@ -154,6 +168,7 @@ const ProfileModal = () => {
             </View>
           </View>
         </Modal>
+
         <Pressable
           style={[
             {
