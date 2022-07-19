@@ -26,14 +26,13 @@ const ProfileModal = () => {
   const [data, setData] = useState({});
   const dispatch = useDispatch();
 
-  console.log(user);
   useEffect(() => {
     dispatch(getUser());
   }, []);
 
   const handleUpdate = () => {
     setData({ name, phone, address });
-    dispatch(updateUser(data));
+    dispatch(updateUser({ ...data, name, phone, address }));
   };
 
   let [fontsLoaded] = useFonts({

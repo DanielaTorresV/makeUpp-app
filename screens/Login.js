@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Text, View, Image, TextInput, ActivityIndicator } from "react-native";
 import {
@@ -9,7 +9,7 @@ import loginStyles from "../styles/loginStyles";
 import Logo from "../assets/Logo.png";
 import Brocha from "../assets/Brocha.png";
 import { loginUser } from "../store/reducers/User.reducer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import RecoveredPasswordModal from "../components/RecoveredPasswordModal";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -76,6 +76,9 @@ const Login = ({ navigation }) => {
             </Text>
           </View>
         </React.Fragment>
+        <View style={loginStyles.containerRecoverPassword}>
+          <RecoveredPasswordModal />
+        </View>
         <View style={loginStyles.containerBottom}>
           <Text
             style={[

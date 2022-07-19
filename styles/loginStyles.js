@@ -55,6 +55,11 @@ const loginStyles = StyleSheet.create({
     width: 70,
     height: 40,
   },
+  containerRecoverPassword: {
+    alignItems: "center",
+    marginBottom: 8,
+    width: "100%",
+  },
   textBack: {
     fontSize: 24,
     color: "#F3DFD1",

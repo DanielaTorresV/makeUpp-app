@@ -6,7 +6,7 @@ import Register from "./screens/Register";
 import Login from "./screens/Login";
 import Products from "./screens/Products";
 import Box from "./screens/Box";
-
+import Toast from "react-native-toast-message";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -23,6 +23,7 @@ export default function App() {
           <Stack.Screen name="Box" component={Box} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast />
     </Provider>
   );
 }

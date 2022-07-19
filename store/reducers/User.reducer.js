@@ -1,5 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 const USERS_SUCCESS = "USERS_SUCCESS";
 const USER_SUCCESS = "USER_SUCCESS";
 const USERS_ERROR = "USERS_ERROR";
@@ -7,6 +8,13 @@ const USERS_LOADING = "USERS_LOADING";
 const UPDATE_USER = "UPDATE_USER";
 
 export const registerUser = (name, email, password, navigation) => {
+  const showToastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Something was wrong! Fill the information correctly.",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
@@ -24,11 +32,19 @@ export const registerUser = (name, email, password, navigation) => {
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      showToastError();
     }
   };
 };
 
 export const loginUser = (email, password, navigation) => {
+  const showToastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Error",
+      text2: "Something was wrong! Fill the information correctly.",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
@@ -45,6 +61,7 @@ export const loginUser = (email, password, navigation) => {
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      showToastError();
     }
   };
 };
@@ -78,10 +95,32 @@ export const updateUser = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data.data);
-
-      dispatch({ type: USER_SUCCESS, payload: res.data.data });
+      dispatch({ type: UPDATE_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
+    } catch (err) {
+      dispatch({ type: USERS_ERROR, payload: err });
+    }
+  };
+};
+
+export const recoverPassUser = (email) => {
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "Recovered Password",
+      text2: "Send an email to recover your password.",
+    });
+  };
+  return async function (dispatch) {
+    try {
+      dispatch({ type: USERS_LOADING, payload: true });
+      const res = await axios.post(`http://localhost:8080/users/getemail`, {
+        email: email,
+      });
+      dispatch({ type: USERS_LOADING, payload: false });
+      if (res.status === 200) {
+        showToast();
+      }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
     }
