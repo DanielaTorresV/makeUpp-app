@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Alert,
   Modal,
@@ -14,18 +15,34 @@ import {
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 import ProfileModalstyles from "../styles/components/ProfileModalStyles";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUser, updateUser } from "../store/reducers/User.reducer";
 
-const ProfileModal = ({ navigation }) => {
+const ProfileModal = () => {
+  const { user, loadingUsers } = useSelector((state) => state.userReducer);
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState(user.name);
+  const [phone, setPhone] = useState(user.phone);
+  const [address, setAddress] = useState(user.address);
+  const [data, setData] = useState({});
+  const dispatch = useDispatch();
+
+  console.log(user);
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
+  const handleUpdate = () => {
+    setData({ name, phone, address });
+    dispatch(updateUser(data));
+  };
 
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });
+
   if (!fontsLoaded) {
+    return <ActivityIndicator color="#0A4379" />;
+  } else if (loadingUsers === true) {
     return <ActivityIndicator color="#0A4379" />;
   } else {
     return (
@@ -70,7 +87,7 @@ const ProfileModal = ({ navigation }) => {
               <TextInput
                 onChangeText={setName}
                 value={name}
-                placeholder="Update your name..."
+                placeholder={user.name}
                 style={[
                   {
                     fontFamily: "LeckerliOne_400Regular",
@@ -91,7 +108,7 @@ const ProfileModal = ({ navigation }) => {
               <TextInput
                 onChangeText={setPhone}
                 value={phone}
-                placeholder="Update your phone..."
+                placeholder={user.phone}
                 style={[
                   {
                     fontFamily: "LeckerliOne_400Regular",
@@ -112,7 +129,7 @@ const ProfileModal = ({ navigation }) => {
               <TextInput
                 onChangeText={setAddress}
                 value={address}
-                placeholder="Update your address..."
+                placeholder={user.address}
                 style={[
                   {
                     fontFamily: "LeckerliOne_400Regular",
@@ -130,6 +147,7 @@ const ProfileModal = ({ navigation }) => {
                   ProfileModalstyles.buttonProfile,
                   ProfileModalstyles.textStyle,
                 ]}
+                onPress={handleUpdate}
               >
                 Update
               </Text>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { View, Text, Image, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import {
@@ -14,11 +15,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Products = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     axios.get(`http://localhost:8080/products`).then((res) => {
       setData(res.data.data);
     });
   }, []);
+
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });

@@ -1,8 +1,10 @@
 import axios from "axios";
-import { Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const USERS_SUCCESS = "USERS_SUCCESS";
+const USER_SUCCESS = "USER_SUCCESS";
 const USERS_ERROR = "USERS_ERROR";
 const USERS_LOADING = "USERS_LOADING";
+const UPDATE_USER = "UPDATE_USER";
 
 export const registerUser = (name, email, password, navigation) => {
   return async function (dispatch) {
@@ -13,8 +15,7 @@ export const registerUser = (name, email, password, navigation) => {
         email: email,
         password: password,
       });
-      console.log(res.data.data);
-
+      await AsyncStorage.setItem("token", res.data.data.token);
       dispatch({ type: USERS_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
 
@@ -35,8 +36,7 @@ export const loginUser = (email, password, navigation) => {
         email: email,
         password: password,
       });
-      console.log(res.data.data);
-
+      await AsyncStorage.setItem("token", res.data.data.token);
       dispatch({ type: USERS_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
 
@@ -49,8 +49,48 @@ export const loginUser = (email, password, navigation) => {
   };
 };
 
+export const getUser = () => {
+  return async function (dispatch) {
+    try {
+      dispatch({ type: USERS_LOADING, payload: true });
+      const token = await AsyncStorage.getItem("token");
+      const res = await axios.get(`http://localhost:8080/users/myuser`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      dispatch({ type: USER_SUCCESS, payload: res.data.data });
+      dispatch({ type: USERS_LOADING, payload: false });
+    } catch (err) {
+      dispatch({ type: USERS_ERROR, payload: err });
+    }
+  };
+};
+
+export const updateUser = (data) => {
+  return async function (dispatch) {
+    try {
+      dispatch({ type: USERS_LOADING, payload: true });
+      const token = await AsyncStorage.getItem("token");
+      const res = await axios.put(`http://localhost:8080/users`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res.data.data);
+
+      dispatch({ type: USER_SUCCESS, payload: res.data.data });
+      dispatch({ type: USERS_LOADING, payload: false });
+    } catch (err) {
+      dispatch({ type: USERS_ERROR, payload: err });
+    }
+  };
+};
+
 const initialState = {
   users: [],
+  user: {},
   loadingUsers: false,
   error: null,
 };
@@ -66,6 +106,16 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.payload,
+      };
+    case USER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     case USERS_ERROR:
       return {
