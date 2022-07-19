@@ -19,11 +19,7 @@ const Register = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleRegister = async (e) => {
-    dispatch(registerUser(name, email, password));
-    const token = await AsyncStorage.getItem("token");
-    if (token) {
-      navigation.navigate("Products");
-    }
+    dispatch(registerUser(name, email, password, navigation));
   };
 
   let [fontsLoaded] = useFonts({

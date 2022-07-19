@@ -22,17 +22,6 @@ const ProfileModal = ({ navigation }) => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  const getData = async () => {
-    try {
-      const nameReg = await AsyncStorage.getItem("name");
-      setName(nameReg);
-    } catch (e) {
-      Alert.alert("Error reading values");
-    }
-  };
-
-  console.log(getData.nameReg);
-
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });
@@ -76,12 +65,12 @@ const ProfileModal = ({ navigation }) => {
                   ProfileModalstyles.modalTextTitle,
                 ]}
               >
-                Name
+                Name:
               </Text>
               <TextInput
                 onChangeText={setName}
                 value={name}
-                placeholder={name}
+                placeholder="Update your name..."
                 style={[
                   {
                     fontFamily: "LeckerliOne_400Regular",

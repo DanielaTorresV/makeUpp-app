@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Text, View, Image, TextInput, ActivityIndicator } from "react-native";
 import {
   useFonts,
@@ -7,10 +8,17 @@ import {
 import loginStyles from "../styles/loginStyles";
 import Logo from "../assets/Logo.png";
 import Brocha from "../assets/Brocha.png";
+import { loginUser } from "../store/reducers/User.reducer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleLogin = async (e) => {
+    dispatch(loginUser(email, password, navigation));
+  };
 
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
@@ -62,6 +70,7 @@ const Login = ({ navigation }) => {
                 },
                 loginStyles.buttonSend,
               ]}
+              onPress={handleLogin}
             >
               Send
             </Text>
