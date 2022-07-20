@@ -4,7 +4,6 @@ const BOX_SUCCESS = "BOX_SUCCESS";
 const BOX_ERROR = "BOX_ERROR";
 const BOX_LOADING = "BOX_LOADING";
 const UPDATE_BOX = "UPDATE_BOX";
-const DELETE_PRODUCTBOX = "DELETE_PRODUCTBOX";
 
 export const getBox = (boxId) => {
   return async function (dispatch) {
@@ -16,7 +15,6 @@ export const getBox = (boxId) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data.data);
       dispatch({ type: BOX_SUCCESS, payload: res.data.data });
       dispatch({ type: BOX_LOADING, payload: false });
     } catch (err) {
@@ -61,7 +59,7 @@ export const updateBox = (boxId, data) => {
           },
         }
       );
-      dispatch({ type: UPDATE_BOX, payload: res.data.data });
+      dispatch({ type: BOX_SUCCESS, payload: res.data.data });
       dispatch({ type: BOX_LOADING, payload: false });
     } catch (err) {
       dispatch({ type: BOX_ERROR, payload: err });
@@ -69,23 +67,24 @@ export const updateBox = (boxId, data) => {
   };
 };
 
-export const deleteProductToBox = (boxId, data) => {
+export const deleteBox = (boxId, navigation) => {
   return async function (dispatch) {
     try {
       dispatch({ type: BOX_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.delete(
         `http://192.168.1.11:8080/boxes/${boxId}`,
-        data,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(res);
-      dispatch({ type: DELETE_PRODUCTBOX, payload: res.data.data });
+      //dispatch({ type: DELETE_BOX, payload: boxId });
       dispatch({ type: BOX_LOADING, payload: false });
+      if (res.status === 200) {
+        navigation.navigate("Products");
+      }
     } catch (err) {
       dispatch({ type: BOX_ERROR, payload: err });
     }
@@ -111,11 +110,6 @@ export const boxReducer = (state = initialState, action) => {
         box: action.payload,
       };
     case UPDATE_BOX:
-      return {
-        ...state,
-        box: action.payload,
-      };
-    case DELETE_PRODUCTBOX:
       return {
         ...state,
         box: action.payload,

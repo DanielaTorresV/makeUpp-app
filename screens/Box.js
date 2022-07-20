@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, ActivityIndicator, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  ImageBackground,
+  FlatList,
+} from "react-native";
 import axios from "axios";
 import {
   useFonts,
@@ -10,12 +16,13 @@ import ProductsModal from "../components/ProductsModal";
 import boxStyles from "../styles/boxStyles";
 import ProfileModal from "../components/ProfileModal";
 import Image_Back from "../assets/Background-img.png";
-import { deleteProductToBox, getBox } from "../store/reducers/Box.reducer";
+import { deleteBox, getBox } from "../store/reducers/Box.reducer";
 
 const Box = ({ route, navigation }) => {
+  const { box, loading } = useSelector((state) => state.boxReducer);
   const { id } = route.params;
   const [data, setData] = useState({});
-  const { box, loading } = useSelector((state) => state.boxReducer);
+  const [productsBox, setProductsBox] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,23 +34,22 @@ const Box = ({ route, navigation }) => {
   useEffect(() => {
     const boxId = box._id;
     dispatch(getBox(boxId));
+    setProductsBox(box.products);
   }, []);
 
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });
 
-  console.log(box);
-  const handleDeleteProduct = () => {
+  const handleDelete = async (e) => {
     const boxId = box._id;
-    const dataProduct = { productId: data._id };
-    dispatch(deleteProductToBox(boxId, dataProduct));
+    dispatch(deleteBox(boxId, navigation));
   };
 
   if (loading === true) {
     return <ActivityIndicator color="#0A4379" />;
   }
-
+  console.log(productsBox);
   if (!fontsLoaded) {
     return <ActivityIndicator color="#0A4379" />;
   } else {
@@ -51,17 +57,6 @@ const Box = ({ route, navigation }) => {
       <ImageBackground source={Image_Back} style={boxStyles.img_background}>
         <View style={boxStyles.container}>
           <View style={boxStyles.container_Buttons}>
-            <Text
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                boxStyles.text_GoProducts,
-              ]}
-              onPress={() => navigation.navigate("Products")}
-            >
-              Go to Our Products
-            </Text>
             <ProfileModal />
           </View>
           {!data ? (
@@ -136,17 +131,35 @@ const Box = ({ route, navigation }) => {
           >
             Products:
           </Text>
-          {box.products.length > 5 ? (
-            alert("You can not add more products")
-          ) : (
-            <View>
-              <Text>Product1: {box.products[0]} </Text>
-              <Text>Product2: {box.products[1]} </Text>
-              <Text>Product3: {box.products[2]} </Text>
-              <Text>Product4: {box.products[3]} </Text>
-              <Text>Product5: {box.products[4]} </Text>
-            </View>
-          )}
+          <View>
+            {!productsBox ? (
+              <ActivityIndicator color="#0A4379" />
+            ) : (
+              <FlatList
+                data={productsBox}
+                renderItem={({ item }) => {
+                  return (
+                    <View style={boxStyles.card}>
+                      <Text
+                        style={[
+                          {
+                            fontFamily: "LeckerliOne_400Regular",
+                          },
+                          boxStyles.name,
+                        ]}
+                      >
+                        Product: {item.name}
+                      </Text>
+                      <Text style={boxStyles.texts_subtitle}>
+                        Category: {item.category}
+                      </Text>
+                    </View>
+                  );
+                }}
+                keyExtractor={(item) => item._id}
+              />
+            )}
+          </View>
           <Text
             style={[
               {
@@ -154,9 +167,22 @@ const Box = ({ route, navigation }) => {
               },
               boxStyles.deleteButton,
             ]}
-            onPress={handleDeleteProduct}
+            onPress={handleDelete}
           >
-            Delete
+            Delete Box
+          </Text>
+          <Text
+            style={[
+              {
+                fontFamily: "LeckerliOne_400Regular",
+              },
+              boxStyles.deleteButton,
+            ]}
+            onPress={() => {
+              navigation.navigate("Purchase", { id: box._id });
+            }}
+          >
+            Go to Purchase
           </Text>
         </View>
       </ImageBackground>

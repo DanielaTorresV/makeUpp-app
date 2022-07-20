@@ -6,6 +6,7 @@ import Register from "./screens/Register";
 import Login from "./screens/Login";
 import Products from "./screens/Products";
 import Box from "./screens/Box";
+import Purchase from "./screens/Purchase";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
@@ -20,6 +21,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Products" component={Products} />
           <Stack.Screen name="Box" component={Box} />
+          <Stack.Screen name="Purchase" component={Purchase} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
