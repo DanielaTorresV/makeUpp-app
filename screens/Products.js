@@ -12,16 +12,21 @@ import ProfileModalstyles from "../styles/components/ProfileModalStyles";
 import AboutUsModal from "../components/AboutUsModal";
 import ProfileModal from "../components/ProfileModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createBox } from "../store/reducers/Box.reducer";
 
 const Products = ({ navigation }) => {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/products`).then((res) => {
+    axios.get(`http://192.168.1.11:8080/products`).then((res) => {
       setData(res.data.data);
     });
   }, []);
+
+  const handleCreateBox = (id) => {
+    dispatch(createBox(id));
+  };
 
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
@@ -106,6 +111,7 @@ const Products = ({ navigation }) => {
                       ]}
                       onPress={() => {
                         navigation.navigate("Box", { id: item._id });
+                        handleCreateBox(item._id);
                       }}
                     >
                       Add to Box

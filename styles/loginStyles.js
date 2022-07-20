@@ -42,7 +42,7 @@ const loginStyles = StyleSheet.create({
     width: 100,
     height: 40,
     padding: 5,
-    margin: 10,
+    margin: 8,
     borderRadius: 10,
   },
   containerBottom: {

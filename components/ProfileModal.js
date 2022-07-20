@@ -18,7 +18,7 @@ import ProfileModalstyles from "../styles/components/ProfileModalStyles";
 import { getUser, updateUser } from "../store/reducers/User.reducer";
 
 const ProfileModal = () => {
-  const { user, loadingUsers } = useSelector((state) => state.userReducer);
+  const { user } = useSelector((state) => state.userReducer);
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState(user.name);
   const [phone, setPhone] = useState(user.phone);
@@ -40,8 +40,6 @@ const ProfileModal = () => {
   });
 
   if (!fontsLoaded) {
-    return <ActivityIndicator color="#0A4379" />;
-  } else if (loadingUsers === true) {
     return <ActivityIndicator color="#0A4379" />;
   } else {
     return (

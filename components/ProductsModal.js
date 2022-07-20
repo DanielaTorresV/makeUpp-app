@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
   Alert,
@@ -15,15 +16,27 @@ import {
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 import productsModalstyles from "../styles/components/productsModalStyles";
+import { updateBox } from "../store/reducers/Box.reducer";
 
 const ProductsModal = () => {
+  const { box } = useSelector((state) => state.boxReducer);
   const [modalVisible, setModalVisible] = useState(false);
   const [data, setData] = useState([]);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    axios.get("http://localhost:8080/products/").then((res) => {
+    axios.get("http://192.168.1.11:8080/products/").then((res) => {
       setData(res.data.data);
     });
   }, []);
+
+  const handleAdd = async (id) => {
+    const boxId = box._id;
+    const data = { idLastProduct: id };
+    dispatch(updateBox(boxId, data));
+  };
+
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });
@@ -81,6 +94,9 @@ const ProductsModal = () => {
                               },
                               productsModalstyles.modalAddButton,
                             ]}
+                            onPress={() => {
+                              handleAdd(item._id);
+                            }}
                           >
                             Add
                           </Text>
@@ -115,7 +131,6 @@ const ProductsModal = () => {
             </View>
           </ScrollView>
         </Modal>
-
         <Pressable
           style={[
             {
