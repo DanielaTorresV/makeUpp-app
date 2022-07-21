@@ -17,15 +17,11 @@ const boxStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop: 15,
+    margin: 10,
   },
   card: {
-    backgroundColor: "#E8B6AD",
-    borderRadius: 6,
-    padding: 8,
     display: "flex",
     flexDirection: "column",
-    margin: 12,
   },
   name: {
     fontSize: 16,
@@ -48,7 +44,7 @@ const boxStyles = StyleSheet.create({
     textAlign: "center",
   },
   addButton: {
-    borderRadius: 15,
+    borderRadius: 6,
     width: 100,
     height: 60,
     paddingTop: 5,
@@ -63,6 +59,21 @@ const boxStyles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     width: "90%",
+  },
+  containerProduct: {
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "#E8B6AD",
+    borderRadius: 6,
+    padding: 8,
+    width: "95%",
+    margin: 8,
+  },
+  imgProduct: {
+    width: "20%",
+    height: "100%",
+    marginLeft: 20,
+    marginRight: 4,
   },
 });
 

@@ -6,6 +6,8 @@ import {
   ActivityIndicator,
   ImageBackground,
   FlatList,
+  Image,
+  ScrollView,
 } from "react-native";
 import axios from "axios";
 import {
@@ -16,13 +18,12 @@ import ProductsModal from "../components/ProductsModal";
 import boxStyles from "../styles/boxStyles";
 import ProfileModal from "../components/ProfileModal";
 import Image_Back from "../assets/Background-img.png";
-import { deleteBox, getBox } from "../store/reducers/Box.reducer";
+import { deleteBox } from "../store/reducers/Box.reducer";
 
 const Box = ({ route, navigation }) => {
   const { box, loading } = useSelector((state) => state.boxReducer);
   const { id } = route.params;
   const [data, setData] = useState({});
-  const [productsBox, setProductsBox] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,24 +32,23 @@ const Box = ({ route, navigation }) => {
     });
   }, []);
 
-  useEffect(() => {
-    const boxId = box._id;
-    dispatch(getBox(boxId));
-  }, []);
-
   let [fontsLoaded] = useFonts({
     LeckerliOne_400Regular,
   });
 
   const handleDelete = async (e) => {
+    e.preventDefault();
     const boxId = box._id;
-    dispatch(deleteBox(boxId, navigation));
+    dispatch(deleteBox(boxId));
+    navigation.navigate("Products");
   };
 
   if (loading === true) {
     return <ActivityIndicator color="#0A4379" />;
   }
-  console.log(box);
+
+  console.log(box.products);
+
   if (!fontsLoaded) {
     return <ActivityIndicator color="#0A4379" />;
   } else {
@@ -58,37 +58,7 @@ const Box = ({ route, navigation }) => {
           <View style={boxStyles.container_Buttons}>
             <ProfileModal />
           </View>
-          {!data ? (
-            <ActivityIndicator color="#0A4379" />
-          ) : (
-            <View style={boxStyles.card}>
-              <Text
-                style={[
-                  {
-                    fontFamily: "LeckerliOne_400Regular",
-                  },
-                  boxStyles.texts_subtitle,
-                ]}
-              >
-                First Product:
-              </Text>
-              <Text
-                style={[
-                  {
-                    fontFamily: "LeckerliOne_400Regular",
-                  },
-                  boxStyles.name,
-                ]}
-              >
-                Product: {data.name}
-              </Text>
-              <Text style={boxStyles.texts_subtitle}>
-                Category: {data.category}
-              </Text>
-            </View>
-          )}
         </View>
-        <ProductsModal />
         <View style={boxStyles.containerBox}>
           <Text
             style={[
@@ -100,6 +70,36 @@ const Box = ({ route, navigation }) => {
           >
             Your Box: Add four products more to your box!
           </Text>
+
+          <View style={boxStyles.container_Buttons}>
+            {box.products.length < 5 && <ProductsModal />}
+            {box.products.length >= 5 && (
+              <Text
+                style={[
+                  {
+                    fontFamily: "LeckerliOne_400Regular",
+                  },
+                  boxStyles.deleteButton,
+                ]}
+                onPress={() => {
+                  navigation.navigate("Purchase", { id: box._id });
+                }}
+              >
+                Go to Purchase
+              </Text>
+            )}
+            <Text
+              style={[
+                {
+                  fontFamily: "LeckerliOne_400Regular",
+                },
+                boxStyles.deleteButton,
+              ]}
+              onPress={handleDelete}
+            >
+              Delete Box
+            </Text>
+          </View>
           <Text
             style={[
               {
@@ -131,58 +131,40 @@ const Box = ({ route, navigation }) => {
             Products:
           </Text>
           <View>
-            {!productsBox ? (
-              <ActivityIndicator color="#0A4379" />
-            ) : (
+            {box && box.products.length > 0 ? (
               <FlatList
-                data={productsBox}
+                data={box.products}
                 renderItem={({ item }) => {
                   return (
-                    <View style={boxStyles.card}>
-                      <Text
-                        style={[
-                          {
-                            fontFamily: "LeckerliOne_400Regular",
-                          },
-                          boxStyles.name,
-                        ]}
-                      >
-                        Product: {item.name}
-                      </Text>
-                      <Text style={boxStyles.texts_subtitle}>
-                        Category: {item.category}
-                      </Text>
+                    <View style={boxStyles.containerProduct}>
+                      <View style={boxStyles.card}>
+                        <Text
+                          style={[
+                            {
+                              fontFamily: "LeckerliOne_400Regular",
+                            },
+                            boxStyles.name,
+                          ]}
+                        >
+                          Product: {item.name}
+                        </Text>
+                        <Text style={boxStyles.texts_subtitle}>
+                          Category: {item.category}
+                        </Text>
+                      </View>
+                      <Image
+                        source={{ uri: `${item.image}` }}
+                        style={boxStyles.imgProduct}
+                      />
                     </View>
                   );
                 }}
                 keyExtractor={(item) => item._id}
               />
+            ) : (
+              <ActivityIndicator color="#0A4379" />
             )}
           </View>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              boxStyles.deleteButton,
-            ]}
-            onPress={handleDelete}
-          >
-            Delete Box
-          </Text>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              boxStyles.deleteButton,
-            ]}
-            onPress={() => {
-              navigation.navigate("Purchase", { id: box._id });
-            }}
-          >
-            Go to Purchase
-          </Text>
         </View>
       </ImageBackground>
     );

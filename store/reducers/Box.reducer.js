@@ -4,6 +4,7 @@ const BOX_SUCCESS = "BOX_SUCCESS";
 const BOX_ERROR = "BOX_ERROR";
 const BOX_LOADING = "BOX_LOADING";
 const UPDATE_BOX = "UPDATE_BOX";
+const DELETE_BOX = "DELETE_BOX";
 
 export const getBox = (boxId) => {
   return async function (dispatch) {
@@ -44,7 +45,6 @@ export const createBox = (productId, data) => {
 export const updateBox = (boxId, data) => {
   return async function (dispatch) {
     try {
-      dispatch({ type: BOX_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.put(
         `http://192.168.1.11:8080/boxes/${boxId}`,
@@ -55,18 +55,17 @@ export const updateBox = (boxId, data) => {
           },
         }
       );
-      dispatch({ type: BOX_SUCCESS, payload: res.data.data });
-      dispatch({ type: BOX_LOADING, payload: false });
+      console.log(res);
+      dispatch({ type: UPDATE_BOX, payload: res.data.data });
     } catch (err) {
       dispatch({ type: BOX_ERROR, payload: err });
     }
   };
 };
 
-export const deleteBox = (boxId, navigation) => {
+export const deleteBox = (boxId) => {
   return async function (dispatch) {
     try {
-      dispatch({ type: BOX_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.delete(
         `http://192.168.1.11:8080/boxes/${boxId}`,
@@ -76,11 +75,7 @@ export const deleteBox = (boxId, navigation) => {
           },
         }
       );
-      //dispatch({ type: DELETE_BOX, payload: boxId });
-      dispatch({ type: BOX_LOADING, payload: false });
-      if (res.status === 200) {
-        navigation.navigate("Products");
-      }
+      dispatch({ type: DELETE_BOX });
     } catch (err) {
       dispatch({ type: BOX_ERROR, payload: err });
     }
@@ -109,6 +104,11 @@ export const boxReducer = (state = initialState, action) => {
       return {
         ...state,
         box: action.payload,
+      };
+    case DELETE_BOX:
+      return {
+        ...state,
+        box: {},
       };
     case BOX_ERROR:
       return {

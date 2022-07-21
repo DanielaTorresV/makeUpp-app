@@ -10,7 +10,7 @@ export const getPurchase = (purchaseId) => {
   return async function (dispatch) {
     try {
       dispatch({ type: PURCHASE_LOADING, payload: true });
-      const res = await axios.post(
+      const res = await axios.get(
         `http://192.168.1.11:8080/purchases/${purchaseId}`
       );
       dispatch({ type: PURCHASE_SUCCESS, payload: res.data.data });
@@ -66,7 +66,6 @@ export const updatePurchase = (purchaseId, data) => {
 export const deletePurchase = (purchaseId, navigation) => {
   return async function (dispatch) {
     try {
-      dispatch({ type: PURCHASE_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.delete(
         `http://192.168.1.11:8080/purchases/${purchaseId}`,
@@ -77,7 +76,6 @@ export const deletePurchase = (purchaseId, navigation) => {
         }
       );
       dispatch({ type: DELETE_PURCHASE, payload: purchaseId });
-      dispatch({ type: PURCHASE_LOADING, payload: false });
       if (res.status === 200) {
         navigation.navigate("Products");
       }
