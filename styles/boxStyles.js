@@ -19,18 +19,6 @@ const boxStyles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15,
   },
-  text_GoProducts: {
-    alignItems: "center",
-    borderRadius: 15,
-    width: 100,
-    height: 60,
-    paddingTop: 5,
-    backgroundColor: "#C7615D",
-    color: "#F3DFD1",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   card: {
     backgroundColor: "#E8B6AD",
     borderRadius: 6,
@@ -69,6 +57,12 @@ const boxStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  containerBox: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "90%",
   },
 });
 

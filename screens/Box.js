@@ -34,7 +34,6 @@ const Box = ({ route, navigation }) => {
   useEffect(() => {
     const boxId = box._id;
     dispatch(getBox(boxId));
-    setProductsBox(box.products);
   }, []);
 
   let [fontsLoaded] = useFonts({
@@ -49,7 +48,7 @@ const Box = ({ route, navigation }) => {
   if (loading === true) {
     return <ActivityIndicator color="#0A4379" />;
   }
-  console.log(productsBox);
+  console.log(box);
   if (!fontsLoaded) {
     return <ActivityIndicator color="#0A4379" />;
   } else {
@@ -90,7 +89,7 @@ const Box = ({ route, navigation }) => {
           )}
         </View>
         <ProductsModal />
-        <View>
+        <View style={boxStyles.containerBox}>
           <Text
             style={[
               {
@@ -99,7 +98,7 @@ const Box = ({ route, navigation }) => {
               boxStyles.name,
             ]}
           >
-            Your Box
+            Your Box: Add four products more to your box!
           </Text>
           <Text
             style={[

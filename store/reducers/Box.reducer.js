@@ -9,12 +9,8 @@ export const getBox = (boxId) => {
   return async function (dispatch) {
     try {
       dispatch({ type: BOX_LOADING, payload: true });
-      const token = await AsyncStorage.getItem("token");
-      const res = await axios.post(`http://192.168.1.11:8080/boxes/${boxId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(`http://192.168.1.11:8080/boxes/${boxId}`);
+      console.log(res);
       dispatch({ type: BOX_SUCCESS, payload: res.data.data });
       dispatch({ type: BOX_LOADING, payload: false });
     } catch (err) {
