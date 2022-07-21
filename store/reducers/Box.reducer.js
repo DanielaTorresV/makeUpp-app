@@ -1,5 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 const BOX_SUCCESS = "BOX_SUCCESS";
 const BOX_ERROR = "BOX_ERROR";
 const BOX_LOADING = "BOX_LOADING";
@@ -10,7 +11,7 @@ export const getBox = (boxId) => {
   return async function (dispatch) {
     try {
       dispatch({ type: BOX_LOADING, payload: true });
-      const res = await axios.get(`http://192.168.1.11:8080/boxes/${boxId}`);
+      const res = await axios.get(`http://192.168.1.12:8080/boxes/${boxId}`);
       console.log(res);
       dispatch({ type: BOX_SUCCESS, payload: res.data.data });
       dispatch({ type: BOX_LOADING, payload: false });
@@ -26,7 +27,7 @@ export const createBox = (productId, data) => {
       dispatch({ type: BOX_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.post(
-        `http://192.168.1.11:8080/boxes/${productId}`,
+        `http://192.168.1.12:8080/boxes/${productId}`,
         data,
         {
           headers: {
@@ -47,7 +48,7 @@ export const updateBox = (boxId, data) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const res = await axios.put(
-        `http://192.168.1.11:8080/boxes/${boxId}`,
+        `http://192.168.1.12:8080/boxes/${boxId}`,
         data,
         {
           headers: {
@@ -57,6 +58,7 @@ export const updateBox = (boxId, data) => {
       );
       console.log(res);
       dispatch({ type: UPDATE_BOX, payload: res.data.data });
+      Alert.alert("Product added!");
     } catch (err) {
       dispatch({ type: BOX_ERROR, payload: err });
     }
@@ -68,7 +70,7 @@ export const deleteBox = (boxId) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const res = await axios.delete(
-        `http://192.168.1.11:8080/boxes/${boxId}`,
+        `http://192.168.1.12:8080/boxes/${boxId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

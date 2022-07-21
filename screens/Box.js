@@ -27,7 +27,7 @@ const Box = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`http://192.168.1.11:8080/products/${id}`).then((res) => {
+    axios.get(`http://192.168.1.12:8080/products/${id}`).then((res) => {
       setData(res.data.data);
     });
   }, []);
@@ -58,22 +58,34 @@ const Box = ({ route, navigation }) => {
           <View style={boxStyles.container_Buttons}>
             <ProfileModal />
           </View>
-        </View>
-        <View style={boxStyles.containerBox}>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              boxStyles.name,
-            ]}
-          >
-            Your Box: Add four products more to your box!
-          </Text>
-
-          <View style={boxStyles.container_Buttons}>
-            {box.products.length < 5 && <ProductsModal />}
-            {box.products.length >= 5 && (
+          <View style={boxStyles.containerBox}>
+            <Text
+              style={[
+                {
+                  fontFamily: "LeckerliOne_400Regular",
+                },
+                boxStyles.title,
+              ]}
+            >
+              Your Box: Add other different products to your box!
+            </Text>
+            <View style={boxStyles.container_Buttons}>
+              {box.products.length < 5 && <ProductsModal />}
+              {box.products.length >= 5 && (
+                <Text
+                  style={[
+                    {
+                      fontFamily: "LeckerliOne_400Regular",
+                    },
+                    boxStyles.deleteButton,
+                  ]}
+                  onPress={() => {
+                    navigation.navigate("Purchase", { id: box._id });
+                  }}
+                >
+                  Go to Purchase
+                </Text>
+              )}
               <Text
                 style={[
                   {
@@ -81,56 +93,41 @@ const Box = ({ route, navigation }) => {
                   },
                   boxStyles.deleteButton,
                 ]}
-                onPress={() => {
-                  navigation.navigate("Purchase", { id: box._id });
-                }}
+                onPress={handleDelete}
               >
-                Go to Purchase
+                Delete Box
               </Text>
-            )}
+            </View>
             <Text
               style={[
                 {
                   fontFamily: "LeckerliOne_400Regular",
                 },
-                boxStyles.deleteButton,
+                boxStyles.texts_subtitle,
               ]}
-              onPress={handleDelete}
             >
-              Delete Box
+              Price: $ {box.price}
             </Text>
-          </View>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              boxStyles.texts_subtitle,
-            ]}
-          >
-            Price: $ {box.price}
-          </Text>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              boxStyles.texts_subtitle,
-            ]}
-          >
-            Amount: {box.amount}
-          </Text>
-          <Text
-            style={[
-              {
-                fontFamily: "LeckerliOne_400Regular",
-              },
-              boxStyles.name,
-            ]}
-          >
-            Products:
-          </Text>
-          <View>
+            <Text
+              style={[
+                {
+                  fontFamily: "LeckerliOne_400Regular",
+                },
+                boxStyles.texts_subtitle,
+              ]}
+            >
+              Amount: {box.amount}
+            </Text>
+            <Text
+              style={[
+                {
+                  fontFamily: "LeckerliOne_400Regular",
+                },
+                boxStyles.name,
+              ]}
+            >
+              Products:
+            </Text>
             {box && box.products.length > 0 ? (
               <FlatList
                 data={box.products}

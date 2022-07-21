@@ -56,6 +56,7 @@ const Login = ({ navigation }) => {
               onChangeText={setPassword}
               value={password}
               placeholder="Put your password..."
+              secureTextEntry={true}
               style={[
                 {
                   fontFamily: "LeckerliOne_400Regular",

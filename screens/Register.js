@@ -69,6 +69,7 @@ const Register = ({ navigation }) => {
               onChangeText={setPassword}
               value={password}
               placeholder="Put your password..."
+              secureTextEntry={true}
               style={[
                 {
                   fontFamily: "LeckerliOne_400Regular",
@@ -80,6 +81,7 @@ const Register = ({ navigation }) => {
               onChangeText={setConfPassword}
               value={confPassword}
               placeholder="Confirm your password..."
+              secureTextEntry={true}
               style={[
                 {
                   fontFamily: "LeckerliOne_400Regular",

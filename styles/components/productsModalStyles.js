@@ -23,7 +23,7 @@ const productsModalstyles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    borderRadius: 15,
+    borderRadius: 6,
     elevation: 2,
   },
   buttonOpen: {

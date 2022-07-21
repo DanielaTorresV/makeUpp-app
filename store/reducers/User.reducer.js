@@ -10,7 +10,7 @@ export const registerUser = (name, email, password, navigation) => {
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(`http://192.168.1.11:8080/users/register`, {
+      const res = await axios.post(`http://192.168.1.12:8080/users/register`, {
         name: name,
         email: email,
         password: password,
@@ -33,7 +33,7 @@ export const loginUser = (email, password, navigation) => {
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(`http://192.168.1.11:8080/users/login`, {
+      const res = await axios.post(`http://192.168.1.12:8080/users/login`, {
         email: email,
         password: password,
       });
@@ -56,7 +56,7 @@ export const getUser = () => {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
-      const res = await axios.get(`http://192.168.1.11:8080/users/myuser`, {
+      const res = await axios.get(`http://192.168.1.12:8080/users/myuser`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -75,13 +75,14 @@ export const updateUser = (data) => {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
-      const res = await axios.put(`http://192.168.1.11:8080/users`, data, {
+      const res = await axios.put(`http://192.168.1.12:8080/users`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       dispatch({ type: USER_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
+      Alert.alert("Your Profile was updated!");
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
       Alert.alert("User could not be updated!");
@@ -93,7 +94,7 @@ export const recoverPassUser = (email) => {
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(`http://192.168.1.11:8080/users/getemail`, {
+      const res = await axios.post(`http://192.168.1.12:8080/users/getemail`, {
         email: email,
       });
       dispatch({ type: USERS_LOADING, payload: false });
@@ -104,6 +105,7 @@ export const recoverPassUser = (email) => {
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      Alert.alert("Something was wrong!");
     }
   };
 };
