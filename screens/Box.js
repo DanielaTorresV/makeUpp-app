@@ -7,7 +7,6 @@ import {
   ImageBackground,
   FlatList,
   Image,
-  ScrollView,
 } from "react-native";
 import axios from "axios";
 import {
@@ -19,9 +18,11 @@ import boxStyles from "../styles/boxStyles";
 import ProfileModal from "../components/ProfileModal";
 import Image_Back from "../assets/Background-img.png";
 import { deleteBox } from "../store/reducers/Box.reducer";
+import { createPurchase } from "../store/reducers/Purchase.reducer";
 
 const Box = ({ route, navigation }) => {
   const { box, loading } = useSelector((state) => state.boxReducer);
+  const { user } = useSelector((state) => state.userReducer);
   const { id } = route.params;
   const [data, setData] = useState({});
   const dispatch = useDispatch();
@@ -43,11 +44,14 @@ const Box = ({ route, navigation }) => {
     navigation.navigate("Products");
   };
 
+  const handleCreatePurchase = async (id) => {
+    const data = { address: user.address, phone: user.phone };
+    dispatch(createPurchase(id, data));
+  };
+
   if (loading === true) {
     return <ActivityIndicator color="#0A4379" />;
   }
-
-  console.log(box.products);
 
   if (!fontsLoaded) {
     return <ActivityIndicator color="#0A4379" />;
@@ -80,7 +84,8 @@ const Box = ({ route, navigation }) => {
                     boxStyles.deleteButton,
                   ]}
                   onPress={() => {
-                    navigation.navigate("Purchase", { id: box._id });
+                    handleCreatePurchase(box._id);
+                    navigation.navigate("Purchase");
                   }}
                 >
                   Go to Purchase

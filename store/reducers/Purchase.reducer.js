@@ -1,5 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 const PURCHASE_SUCCESS = "PURCHASE_SUCCESS";
 const PURCHASE_ERROR = "PURCHASE_ERROR";
 const PURCHASE_LOADING = "PURCHASE_LOADING";
@@ -37,8 +38,10 @@ export const createPurchase = (boxId, data) => {
       );
       dispatch({ type: PURCHASE_SUCCESS, payload: res.data.data });
       dispatch({ type: PURCHASE_LOADING, payload: false });
+      Alert.alert("Purchase created");
     } catch (err) {
       dispatch({ type: PURCHASE_ERROR, payload: err });
+      Alert.alert("Purchase does not created");
     }
   };
 };
@@ -56,9 +59,11 @@ export const updatePurchase = (purchaseId, data) => {
           },
         }
       );
-      dispatch({ type: UPDATE_PURCHASE, payload: data });
+      dispatch({ type: UPDATE_PURCHASE, payload: res.data.data });
+      Alert.alert("Purchase updated!");
     } catch (err) {
       dispatch({ type: PURCHASE_ERROR, payload: err });
+      Alert.alert("Purchase does not updated!");
     }
   };
 };
@@ -75,7 +80,7 @@ export const deletePurchase = (purchaseId, navigation) => {
           },
         }
       );
-      dispatch({ type: DELETE_PURCHASE, payload: purchaseId });
+      dispatch({ type: DELETE_PURCHASE });
       if (res.status === 200) {
         navigation.navigate("Products");
       }
@@ -106,16 +111,12 @@ export const purchaseReducer = (state = initialState, action) => {
     case UPDATE_PURCHASE:
       return {
         ...state,
-        purchases: state.purchases.map((item) =>
-          item._id === action.payload._id ? action.payload : item
-        ),
+        purchases: action.payload,
       };
     case DELETE_PURCHASE:
       return {
         ...state,
-        purchases: state.purchases.filter(
-          (item) => item._id !== action.payload
-        ),
+        purchases: {},
       };
     case PURCHASE_ERROR:
       return {

@@ -85,12 +85,7 @@ const ProfileModal = () => {
                 onChangeText={setName}
                 value={name}
                 placeholder={user.name}
-                style={[
-                  {
-                    fontFamily: "LeckerliOne_400Regular",
-                  },
-                  ProfileModalstyles.modalText,
-                ]}
+                style={ProfileModalstyles.modalText}
               />
               <Text
                 style={[
@@ -106,12 +101,7 @@ const ProfileModal = () => {
                 onChangeText={setPhone}
                 value={phone}
                 placeholder={user.phone}
-                style={[
-                  {
-                    fontFamily: "LeckerliOne_400Regular",
-                  },
-                  ProfileModalstyles.modalText,
-                ]}
+                style={ProfileModalstyles.modalText}
               />
               <Text
                 style={[
@@ -127,12 +117,7 @@ const ProfileModal = () => {
                 onChangeText={setAddress}
                 value={address}
                 placeholder={user.address}
-                style={[
-                  {
-                    fontFamily: "LeckerliOne_400Regular",
-                  },
-                  ProfileModalstyles.modalText,
-                ]}
+                style={ProfileModalstyles.modalText}
               />
 
               <Text

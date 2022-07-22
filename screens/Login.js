@@ -45,24 +45,14 @@ const Login = ({ navigation }) => {
               onChangeText={setEmail}
               value={email}
               placeholder="Put your email..."
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                loginStyles.textInputs,
-              ]}
+              style={loginStyles.textInputs}
             />
             <TextInput
               onChangeText={setPassword}
               value={password}
               placeholder="Put your password..."
               secureTextEntry={true}
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                loginStyles.textInputs,
-              ]}
+              style={loginStyles.textInputs}
             />
             <Text
               style={[

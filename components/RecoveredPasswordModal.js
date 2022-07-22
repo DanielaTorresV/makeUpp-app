@@ -60,12 +60,7 @@ const RecoveredPasswordModal = () => {
                   onChangeText={setEmail}
                   value={email}
                   placeholder="Put your email..."
-                  style={[
-                    {
-                      fontFamily: "LeckerliOne_400Regular",
-                    },
-                    recoveredPasswordModalStyles.modalText,
-                  ]}
+                  style={recoveredPasswordModalStyles.modalText}
                 />
                 <Text
                   style={[

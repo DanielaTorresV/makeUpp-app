@@ -47,47 +47,27 @@ const Register = ({ navigation }) => {
               onChangeText={setName}
               value={name}
               placeholder="Put your name..."
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                registerStyles.textInputs,
-              ]}
+              style={registerStyles.textInputs}
             />
             <TextInput
               onChangeText={setEmail}
               value={email}
               placeholder="Put your email..."
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                registerStyles.textInputs,
-              ]}
+              style={registerStyles.textInputs}
             />
             <TextInput
               onChangeText={setPassword}
               value={password}
               placeholder="Put your password..."
               secureTextEntry={true}
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                registerStyles.textInputs,
-              ]}
+              style={registerStyles.textInputs}
             />
             <TextInput
               onChangeText={setConfPassword}
               value={confPassword}
               placeholder="Confirm your password..."
               secureTextEntry={true}
-              style={[
-                {
-                  fontFamily: "LeckerliOne_400Regular",
-                },
-                registerStyles.textInputs,
-              ]}
+              style={registerStyles.textInputs}
             />
             <Text
               style={[

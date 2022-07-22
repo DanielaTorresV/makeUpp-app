@@ -56,7 +56,6 @@ export const updateBox = (boxId, data) => {
           },
         }
       );
-      console.log(res);
       dispatch({ type: UPDATE_BOX, payload: res.data.data });
       Alert.alert("Product added!");
     } catch (err) {

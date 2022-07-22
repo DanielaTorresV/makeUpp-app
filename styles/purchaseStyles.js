@@ -14,18 +14,25 @@ const purchaseStyles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
   },
+  containerDetail: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 5,
+  },
   textTitle: {
-    margin: 8,
+    margin: 4,
     fontSize: 20,
     color: "#0A4379",
   },
   textPar: {
     fontSize: 15,
     color: "#0A4379",
+    marginVertical: 3,
+    marginLeft: 7,
   },
   textInputs: {
     padding: 5,
-    marginVertical: 8,
+    marginVertical: 7,
     backgroundColor: "#F3DFD1",
     width: "80%",
     borderRadius: 8,
@@ -36,8 +43,8 @@ const purchaseStyles = StyleSheet.create({
   buttonsPurchase: {
     alignItems: "center",
     borderRadius: 10,
-    width: 120,
-    height: 60,
+    width: 250,
+    height: 35,
     padding: 5,
     marginLeft: 8,
     backgroundColor: "#C7615D",
@@ -51,7 +58,7 @@ const purchaseStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 8,
   },
 });
 
