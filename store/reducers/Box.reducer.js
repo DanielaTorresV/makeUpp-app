@@ -12,7 +12,9 @@ export const getBox = (boxId) => {
   return async function (dispatch) {
     try {
       dispatch({ type: BOX_LOADING, payload: true });
-      const res = await axios.get(`http://192.168.1.12:8080/boxes/${boxId}`);
+      const res = await axios.get(
+        `https://makeupp-app.herokuapp.com/boxes/${boxId}`
+      );
       console.log(res);
       dispatch({ type: BOX_SUCCESS, payload: res.data.data });
       dispatch({ type: BOX_LOADING, payload: false });
@@ -40,7 +42,7 @@ export const createBox = (productId, data) => {
       dispatch({ type: BOX_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.post(
-        `http://192.168.1.12:8080/boxes/${productId}`,
+        `https://makeupp-app.herokuapp.com/boxes/${productId}`,
         data,
         {
           headers: {
@@ -69,7 +71,7 @@ export const updateBox = (boxId, data) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const res = await axios.put(
-        `http://192.168.1.12:8080/boxes/${boxId}`,
+        `https://makeupp-app.herokuapp.com/boxes/${boxId}`,
         data,
         {
           headers: {
@@ -97,7 +99,7 @@ export const deleteBox = (boxId) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const res = await axios.delete(
-        `http://192.168.1.12:8080/boxes/${boxId}`,
+        `https://makeupp-app.herokuapp.com/boxes/${boxId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

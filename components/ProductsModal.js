@@ -26,7 +26,7 @@ const ProductsModal = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get("http://192.168.1.12:8080/products/").then((res) => {
+    axios.get(" https://makeupp-app.herokuapp.com/products/").then((res) => {
       setData(res.data.data);
     });
   }, []);

@@ -17,11 +17,14 @@ export const registerUser = (name, email, password, navigation) => {
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(`http://192.168.1.12:8080/users/register`, {
-        name: name,
-        email: email,
-        password: password,
-      });
+      const res = await axios.post(
+        `https://makeupp-app.herokuapp.com/users/register`,
+        {
+          name: name,
+          email: email,
+          password: password,
+        }
+      );
       await AsyncStorage.setItem("token", res.data.data.token);
       dispatch({ type: USERS_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
@@ -47,10 +50,13 @@ export const loginUser = (email, password, navigation) => {
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(`http://192.168.1.12:8080/users/login`, {
-        email: email,
-        password: password,
-      });
+      const res = await axios.post(
+        `https://makeupp-app.herokuapp.com/users/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
       await AsyncStorage.setItem("token", res.data.data.token);
       dispatch({ type: USERS_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
@@ -71,11 +77,14 @@ export const getUser = () => {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
-      const res = await axios.get(`http://192.168.1.12:8080/users/myuser`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(
+        `https://makeupp-app.herokuapp.com/users/myuser`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       dispatch({ type: USER_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
@@ -102,11 +111,15 @@ export const updateUser = (data) => {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
-      const res = await axios.put(`http://192.168.1.12:8080/users`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.put(
+        `https://makeupp-app.herokuapp.com/users`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       dispatch({ type: USER_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
       toastSucc();
@@ -135,9 +148,12 @@ export const recoverPassUser = (email) => {
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(`http://192.168.1.12:8080/users/getemail`, {
-        email: email,
-      });
+      const res = await axios.post(
+        `https://makeupp-app.herokuapp.com/users/getemail`,
+        {
+          email: email,
+        }
+      );
       dispatch({ type: USERS_LOADING, payload: false });
       if (res.status === 200) {
         Alert.alert(
@@ -171,7 +187,7 @@ export const confirmPurchase = (data) => {
       dispatch({ type: USERS_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.post(
-        `http://192.168.1.12:8080/users/confirmation`,
+        `https://makeupp-app.herokuapp.com/users/confirmation`,
         data,
         {
           headers: {

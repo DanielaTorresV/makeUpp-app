@@ -28,9 +28,11 @@ const Box = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`http://192.168.1.12:8080/products/${id}`).then((res) => {
-      setData(res.data.data);
-    });
+    axios
+      .get(` https://makeupp-app.herokuapp.com/products/${id}`)
+      .then((res) => {
+        setData(res.data.data);
+      });
   }, []);
 
   let [fontsLoaded] = useFonts({

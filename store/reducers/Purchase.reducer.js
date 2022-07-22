@@ -13,7 +13,7 @@ export const getPurchase = (purchaseId) => {
     try {
       dispatch({ type: PURCHASE_LOADING, payload: true });
       const res = await axios.get(
-        `http://192.168.1.12:8080/purchases/${purchaseId}`
+        `https://makeupp-app.herokuapp.com/purchases/${purchaseId}`
       );
       dispatch({ type: PURCHASE_SUCCESS, payload: res.data.data });
       dispatch({ type: PURCHASE_LOADING, payload: false });
@@ -41,7 +41,7 @@ export const createPurchase = (boxId, data) => {
       dispatch({ type: PURCHASE_LOADING, payload: true });
       const token = await AsyncStorage.getItem("token");
       const res = await axios.post(
-        `http://192.168.1.12:8080/purchases/${boxId}`,
+        `https://makeupp-app.herokuapp.com/purchases/${boxId}`,
         data,
         {
           headers: {
@@ -78,7 +78,7 @@ export const updatePurchase = (purchaseId, data) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const res = await axios.put(
-        `http://192.168.1.12:8080/purchases/${purchaseId}`,
+        `https://makeupp-app.herokuapp.com/purchases/${purchaseId}`,
         data,
         {
           headers: {
@@ -102,7 +102,7 @@ export const deletePurchase = (purchaseId, navigation) => {
     try {
       const token = await AsyncStorage.getItem("token");
       const res = await axios.delete(
-        `http://192.168.1.12:8080/purchases/${purchaseId}`,
+        `https://makeupp-app.herokuapp.com/purchases/${purchaseId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
