@@ -97,41 +97,6 @@ export const updatePurchase = (purchaseId, data) => {
   };
 };
 
-export const confirmPurchase = (data) => {
-  const toastSucc = () => {
-    Toast.show({
-      type: "success",
-      text1: "Email sent with purchase confirmation!",
-    });
-  };
-  const toastError = () => {
-    Toast.show({
-      type: "error",
-      text1: "Purchase could not be confirmed!",
-    });
-  };
-  return async function (dispatch) {
-    try {
-      dispatch({ type: PURCHASE_LOADING, payload: true });
-      const token = await AsyncStorage.getItem("token");
-      const res = await axios.post(
-        `http://192.168.1.12:8080/purchases/confirmation`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch({ type: PURCHASE_LOADING, payload: false });
-      toastSucc();
-    } catch (err) {
-      dispatch({ type: PURCHASE_ERROR, payload: err });
-      toastError();
-    }
-  };
-};
-
 export const deletePurchase = (purchaseId, navigation) => {
   return async function (dispatch) {
     try {

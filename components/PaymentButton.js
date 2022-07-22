@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Text } from "react-native";
 import purchaseStyles from "../styles/purchaseStyles";
-import { confirmPurchase } from "../store/reducers/Purchase.reducer";
+import { confirmPurchase } from "../store/reducers/User.reducer";
 
 const ConfirmPurchaseButton = ({
   navigation,
@@ -14,7 +14,7 @@ const ConfirmPurchaseButton = ({
   email,
 }) => {
   const dispatch = useDispatch();
-  const handleClick = async (e) => {
+  const handleConfirm = async (e) => {
     e.preventDefault();
     const data = {
       name: userName,
@@ -24,7 +24,6 @@ const ConfirmPurchaseButton = ({
       price: boxPrice,
       products: boxProducts,
     };
-    console.log(data);
     dispatch(confirmPurchase(data));
     navigation.navigate("Products");
   };
@@ -37,7 +36,7 @@ const ConfirmPurchaseButton = ({
         },
         purchaseStyles.buttonsPurchase,
       ]}
-      onPress={handleClick}
+      onPress={handleConfirm}
     >
       Confirm your Purchase
     </Text>
