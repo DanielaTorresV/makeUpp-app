@@ -5,8 +5,15 @@ const USERS_SUCCESS = "USERS_SUCCESS";
 const USER_SUCCESS = "USER_SUCCESS";
 const USERS_ERROR = "USERS_ERROR";
 const USERS_LOADING = "USERS_LOADING";
+import Toast from "react-native-toast-message";
 
 export const registerUser = (name, email, password, navigation) => {
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Something was wrong, verify the information!",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
@@ -24,12 +31,19 @@ export const registerUser = (name, email, password, navigation) => {
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      toastError();
       Alert.alert("Something was wrong!");
     }
   };
 };
 
 export const loginUser = (email, password, navigation) => {
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Something was wrong, verify the information!",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
@@ -46,6 +60,7 @@ export const loginUser = (email, password, navigation) => {
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      toastError();
       Alert.alert("Something was wrong!");
     }
   };
@@ -71,6 +86,18 @@ export const getUser = () => {
 };
 
 export const updateUser = (data) => {
+  const toastSucc = () => {
+    Toast.show({
+      type: "success",
+      text1: "Your profile was updated!",
+    });
+  };
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "User could not be updated!",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
@@ -82,15 +109,29 @@ export const updateUser = (data) => {
       });
       dispatch({ type: USER_SUCCESS, payload: res.data.data });
       dispatch({ type: USERS_LOADING, payload: false });
+      toastSucc();
       Alert.alert("Your Profile was updated!");
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      toastError;
       Alert.alert("User could not be updated!");
     }
   };
 };
 
 export const recoverPassUser = (email) => {
+  const toastSucc = () => {
+    Toast.show({
+      type: "success",
+      text1: "Email sent with the link to recover your password!",
+    });
+  };
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Something was wrong, verify the information!",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: USERS_LOADING, payload: true });
@@ -102,9 +143,11 @@ export const recoverPassUser = (email) => {
         Alert.alert(
           "An email was sent with the link to recover your password!"
         );
+        toastSucc();
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
+      toastError();
       Alert.alert("Something was wrong!");
     }
   };

@@ -9,6 +9,7 @@ import Box from "./screens/Box";
 import Purchase from "./screens/Purchase";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ export default function App() {
           <Stack.Screen name="Box" component={Box} />
           <Stack.Screen name="Purchase" component={Purchase} />
         </Stack.Navigator>
+        <Toast />
       </NavigationContainer>
     </Provider>
   );

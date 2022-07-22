@@ -11,13 +11,13 @@ import purchaseStyles from "../styles/purchaseStyles";
 import { updatePurchase } from "../store/reducers/Purchase.reducer";
 import Image_Back from "../assets/Background-img.png";
 import ProfileModal from "../components/ProfileModal";
-import PaymentButton from "../components/PaymentButton";
+import ConfirmPurchaseButton from "../components/PaymentButton";
 import {
   useFonts,
   LeckerliOne_400Regular,
 } from "@expo-google-fonts/leckerli-one";
 
-const Purchase = () => {
+const Purchase = ({ navigation }) => {
   const { purchases, loading } = useSelector((state) => state.purchaseReducer);
   const { user } = useSelector((state) => state.userReducer);
   const { box } = useSelector((state) => state.boxReducer);
@@ -169,7 +169,7 @@ const Purchase = () => {
                           purchaseStyles.textPar,
                         ]}
                       >
-                        Producto1: {box.products[0].name}
+                        *Producto 1: {box.products[0].name}
                       </Text>
                       <Text
                         style={[
@@ -179,7 +179,7 @@ const Purchase = () => {
                           purchaseStyles.textPar,
                         ]}
                       >
-                        Producto2: {box.products[1].name}
+                        *Producto 2: {box.products[1].name}
                       </Text>
                       <Text
                         style={[
@@ -189,7 +189,7 @@ const Purchase = () => {
                           purchaseStyles.textPar,
                         ]}
                       >
-                        Producto3: {box.products[2].name}
+                        *Producto 3: {box.products[2].name}
                       </Text>
                       <Text
                         style={[
@@ -199,7 +199,7 @@ const Purchase = () => {
                           purchaseStyles.textPar,
                         ]}
                       >
-                        Producto4: {box.products[3].name}
+                        *Producto 4: {box.products[3].name}
                       </Text>
                       <Text
                         style={[
@@ -209,7 +209,7 @@ const Purchase = () => {
                           purchaseStyles.textPar,
                         ]}
                       >
-                        Producto5: {box.products[4].name}
+                        *Producto 5: {box.products[4].name}
                       </Text>
                       <Text
                         style={[
@@ -227,7 +227,15 @@ const Purchase = () => {
               </View>
             )}
           </View>
-          {/*<PaymentButton />*/}
+          <ConfirmPurchaseButton
+            userName={user.name}
+            email={user.email}
+            userPhone={purchases.phone}
+            userAddress={purchases.address}
+            boxPrice={box.price}
+            boxProducts={box.products}
+            navigation={navigation}
+          />
         </View>
       </ImageBackground>
     );

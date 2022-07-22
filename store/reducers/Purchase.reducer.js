@@ -6,6 +6,7 @@ const PURCHASE_ERROR = "PURCHASE_ERROR";
 const PURCHASE_LOADING = "PURCHASE_LOADING";
 const UPDATE_PURCHASE = "UPDATE_PURCHASE";
 const DELETE_PURCHASE = "DELETE_PURCHASE";
+import Toast from "react-native-toast-message";
 
 export const getPurchase = (purchaseId) => {
   return async function (dispatch) {
@@ -23,6 +24,18 @@ export const getPurchase = (purchaseId) => {
 };
 
 export const createPurchase = (boxId, data) => {
+  const toastSucc = () => {
+    Toast.show({
+      type: "success",
+      text1: "Purchase created successfully!",
+    });
+  };
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Purchase could not be created!",
+    });
+  };
   return async function (dispatch) {
     try {
       dispatch({ type: PURCHASE_LOADING, payload: true });
@@ -38,15 +51,29 @@ export const createPurchase = (boxId, data) => {
       );
       dispatch({ type: PURCHASE_SUCCESS, payload: res.data.data });
       dispatch({ type: PURCHASE_LOADING, payload: false });
+      toastSucc();
       Alert.alert("Purchase created");
     } catch (err) {
       dispatch({ type: PURCHASE_ERROR, payload: err });
+      toastError();
       Alert.alert("Purchase does not created");
     }
   };
 };
 
 export const updatePurchase = (purchaseId, data) => {
+  const toastSucc = () => {
+    Toast.show({
+      type: "success",
+      text1: "Purchase updated successfully!",
+    });
+  };
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Purchase could not be updated!",
+    });
+  };
   return async function (dispatch) {
     try {
       const token = await AsyncStorage.getItem("token");
@@ -60,10 +87,47 @@ export const updatePurchase = (purchaseId, data) => {
         }
       );
       dispatch({ type: UPDATE_PURCHASE, payload: res.data.data });
+      toastSucc();
       Alert.alert("Purchase updated!");
     } catch (err) {
       dispatch({ type: PURCHASE_ERROR, payload: err });
+      toastError();
       Alert.alert("Purchase does not updated!");
+    }
+  };
+};
+
+export const confirmPurchase = (data) => {
+  const toastSucc = () => {
+    Toast.show({
+      type: "success",
+      text1: "Email sent with purchase confirmation!",
+    });
+  };
+  const toastError = () => {
+    Toast.show({
+      type: "error",
+      text1: "Purchase could not be confirmed!",
+    });
+  };
+  return async function (dispatch) {
+    try {
+      dispatch({ type: PURCHASE_LOADING, payload: true });
+      const token = await AsyncStorage.getItem("token");
+      const res = await axios.post(
+        `http://192.168.1.12:8080/purchases/confirmation`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch({ type: PURCHASE_LOADING, payload: false });
+      toastSucc();
+    } catch (err) {
+      dispatch({ type: PURCHASE_ERROR, payload: err });
+      toastError();
     }
   };
 };
