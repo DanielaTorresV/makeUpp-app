@@ -7,35 +7,53 @@ const USERS_ERROR = "USERS_ERROR";
 const USERS_LOADING = "USERS_LOADING";
 import Toast from "react-native-toast-message";
 
-export const registerUser = (name, email, password, navigation) => {
+export const registerUser = (
+  name,
+  email,
+  password,
+  confPassword,
+  navigation
+) => {
   const toastError = () => {
     Toast.show({
       type: "error",
       text1: "Something was wrong, verify the information!",
     });
   };
+  const toastErrPass = () => {
+    Toast.show({
+      type: "error",
+      text1: "The password must match!",
+    });
+  };
   return async function (dispatch) {
     try {
-      dispatch({ type: USERS_LOADING, payload: true });
-      const res = await axios.post(
-        `https://makeupp-app.herokuapp.com/users/register`,
-        {
-          name: name,
-          email: email,
-          password: password,
-        }
-      );
-      await AsyncStorage.setItem("token", res.data.data.token);
-      dispatch({ type: USERS_SUCCESS, payload: res.data.data });
-      dispatch({ type: USERS_LOADING, payload: false });
+      if (password !== confPassword) {
+        toastErrPass();
+        navigation.navigate("Welcome");
+      } else {
+        dispatch({ type: USERS_LOADING, payload: true });
+        const res = await axios.post(
+          `https://makeupp-app.herokuapp.com/users/register`,
+          {
+            name: name,
+            email: email,
+            password: password,
+          }
+        );
+        await AsyncStorage.setItem("token", res.data.data.token);
+        dispatch({ type: USERS_SUCCESS, payload: res.data.data });
+        dispatch({ type: USERS_LOADING, payload: false });
 
-      if (res.status === 200) {
-        navigation.navigate("Products");
+        if (res.status === 200) {
+          navigation.navigate("Products");
+        }
       }
     } catch (err) {
       dispatch({ type: USERS_ERROR, payload: err });
       toastError();
       Alert.alert("Something was wrong!");
+      navigation.navigate("Welcome");
     }
   };
 };
@@ -68,6 +86,7 @@ export const loginUser = (email, password, navigation) => {
       dispatch({ type: USERS_ERROR, payload: err });
       toastError();
       Alert.alert("Something was wrong!");
+      navigation.navigate("Welcome");
     }
   };
 };
