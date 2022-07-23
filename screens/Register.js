@@ -9,7 +9,6 @@ import registerStyles from "../styles/registerStyles";
 import Logo from "../assets/Logo.png";
 import LipStick from "../assets/Labial.png";
 import { registerUser } from "../store/reducers/User.reducer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -19,7 +18,7 @@ const Register = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleRegister = async (e) => {
-    dispatch(registerUser(name, email, password, navigation));
+    dispatch(registerUser(name, email, password, confPassword, navigation));
   };
 
   let [fontsLoaded] = useFonts({
